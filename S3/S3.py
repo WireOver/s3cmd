@@ -88,7 +88,7 @@ except ImportError, e:
 orig_mime_magic = mime_magic
 def new_mime_magic(file):
     print(file)
-    ret = orig_mime_magic(file)
+    ret = list(orig_mime_magic(file))
     if file.endswith('.gz'):
         file = file[:-3]
     if file.endswith('.css'):
@@ -431,7 +431,6 @@ class S3(object):
         content_type = self.config.mime_type
         content_encoding = None
         if filename != "-" and not content_type and self.config.guess_mime_type:
-            print('waba fraba')
             (content_type, content_encoding) = mime_magic(filename)
         if not content_type:
             content_type = self.config.default_mime_type
