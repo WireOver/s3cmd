@@ -85,6 +85,7 @@ except ImportError, e:
         return mimetypes.guess_type(file)
 
 #patch to correctly resolve css files
+print('abazaba')
 orig_mime_magic = mime_magic
 def mime_magic(file):
     print(file)
