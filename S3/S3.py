@@ -84,6 +84,19 @@ except ImportError, e:
             magic_warned = True
         return mimetypes.guess_type(file)
 
+#patch to correctly resolve css files
+orig_mime_magic = mime_magic
+def mime_magic(file):
+    ret = orig_mime_magic(file)
+    if file.endswith('.gz'):
+        file = file[:-3]
+    if file.endswith('.css'):
+        ret[0] = 'text/css'
+        return ret
+    if file.endswith('.js'):
+        ret[0] = 'application/javascript'
+        return ret
+
 __all__ = []
 class S3Request(object):
     def __init__(self, s3, method_string, resource, headers, params = {}):
