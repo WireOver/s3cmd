@@ -10,7 +10,6 @@ import httplib
 import logging
 import mimetypes
 import re
-from logging import debug, info, warning, error
 from stat import ST_SIZE
 
 try:
@@ -96,6 +95,7 @@ def new_mime_magic(file):
     if file.endswith('.js'):
         ret[0] = 'application/javascript'
         return ret
+    return ret
 mime_magic = new_mime_magic
 
 __all__ = []
