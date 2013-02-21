@@ -85,9 +85,8 @@ except ImportError, e:
         return mimetypes.guess_type(file)
 
 #patch to correctly resolve css files
-print('abazaba')
 orig_mime_magic = mime_magic
-def mime_magic(file):
+def new_mime_magic(file):
     print(file)
     ret = orig_mime_magic(file)
     if file.endswith('.gz'):
@@ -99,6 +98,7 @@ def mime_magic(file):
     if file.endswith('.js'):
         ret[0] = 'application/javascript'
         return ret
+mime_magic = new_mime_magic
 
 __all__ = []
 class S3Request(object):
@@ -431,6 +431,7 @@ class S3(object):
         content_type = self.config.mime_type
         content_encoding = None
         if filename != "-" and not content_type and self.config.guess_mime_type:
+            print('waba fraba')
             (content_type, content_encoding) = mime_magic(filename)
         if not content_type:
             content_type = self.config.default_mime_type
