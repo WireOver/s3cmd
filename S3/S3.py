@@ -87,13 +87,11 @@ except ImportError, e:
 #patch to correctly resolve css files
 orig_mime_magic = mime_magic
 def new_mime_magic(file):
-    print(file)
     ret = list(orig_mime_magic(file))
     if file.endswith('.gz'):
         file = file[:-3]
     if file.endswith('.css'):
         ret[0] = 'text/css'
-        print(ret)
         return ret
     if file.endswith('.js'):
         ret[0] = 'application/javascript'
